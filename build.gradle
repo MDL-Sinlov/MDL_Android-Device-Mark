@@ -14,6 +14,9 @@ buildscript {
 
 allprojects {
     repositories {
+        maven {
+            url 'https://raw.githubusercontent.com/MDL-Sinlov/MDL-Android-Repo/master/mvn-repo/'
+        }
         jcenter()
     }
 }

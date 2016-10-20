@@ -1,16 +1,16 @@
 [TOC]
 
-# Android temp
+# Android device-mark
 
 Android ALog provides :
 - ~~Full method count 00~~
 
 Less Runtime :
-- minSdkVersion 4
+- minSdkVersion 9
 - gradle or maven
 - jar [You can Download just like this Path]((https://github.com/MDL-Sinlov/MDL-Android-Repo/raw/master/mvn-repo/mdl/sinlov/android/))
 
-> eclipse just use every repo at version `temp-x.x.x-jarLib.jar`
+> eclipse just use every repo at version `device-mark-x.x.x-jarLib.jar`
 
 Project Runtime:
 - Android Studio 2.2
@@ -42,12 +42,22 @@ in module `build.gradle`
 
 ```gradle
 dependencies {
-    compile 'mdl.sinlov.android:temp:0.0.1'
+    compile 'mdl.sinlov.android:device-mark:0.0.1'
 }
 ```
 
 # Usage
 
+```java
+# you can use MAC from API9 - API23
+String mac = "mac:\n" + DeviceIDFactory.getDeviceIDByMac();
+
+# Full of API can use like install UUID
+String uuid = "uuid:\n" + DeviceIDFactory.getUUID(aCtx);
+
+# match deivceID by wifi imei UUID
+String deviceId = "deviceID:\n" + DeviceIDFactory.getDeviceId(aCtx, "");
+```
 
 
 ###License

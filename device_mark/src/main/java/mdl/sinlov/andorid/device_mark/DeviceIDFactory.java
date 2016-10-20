@@ -11,7 +11,6 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.util.Enumeration;
 
 /**
@@ -83,8 +82,8 @@ public class DeviceIDFactory {
      * @return
      */
     public static String getMachineIpAddress() {
-        Enumeration<NetworkInterface> interfaces = null;
         String ipAddress = null;
+        Enumeration<NetworkInterface> interfaces = null;
         try {
             interfaces = NetworkInterface.getNetworkInterfaces();
             NetworkInterface iF = null;
@@ -95,8 +94,9 @@ public class DeviceIDFactory {
                 ipAddress = bytesToString(address.getAddress());
                 if (ipAddress == null) continue;
             }
-        } catch (SocketException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            return "";
         }
         return ipAddress;
     }
@@ -132,6 +132,10 @@ public class DeviceIDFactory {
             LineNumberReader input = new LineNumberReader(ir);
 
             while (true) {
+                int lineNumber = input.getLineNumber();
+                if (lineNumber < 1) {
+                    break;
+                }
                 String str = input.readLine();
                 if (str != null) {
                     wifiMac = str.trim();

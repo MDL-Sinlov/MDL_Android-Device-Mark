@@ -140,14 +140,15 @@ public class DeviceIDFactory {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            return "";
         }
         if (TextUtils.isEmpty(wifiMac)) {
             try {
                 return loadFileAsString("/sys/class/net/eth0/address")
-                        .toUpperCase().substring(0, 17);
+                        .toLowerCase().substring(0, 17);
             } catch (IOException e) {
                 e.printStackTrace();
-                return null;
+                return "";
             }
         }
         return wifiMac;

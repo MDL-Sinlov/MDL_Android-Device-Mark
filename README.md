@@ -26,7 +26,7 @@ Project Runtime:
 
 # Demo
 
-[Download Demo at Android-Device-Mark-debug-0.0.1.apk](Apk-For-Test/Android-Device-Mark-debug-0.0.1.apk)
+[Download Demo at Android-Device-Mark-debug-0.0.1.apk](https://github.com/MDL-Sinlov/MDL_Android-Device-Mark/raw/master/Apk-For-Test/Android-Device-Mark-debug-0.0.1.apk)
 
 # Dependency
 

@@ -1,10 +1,11 @@
 ### Self setting
 
 !gradle.properties
+!Apk-For-Test/Android-Device-Mark-debug-0.0.1.apk
 
 ### Android template
 # Built application files
-*.apk
+#*.apk
 *.ap_
 
 # Files for the Dalvik VM

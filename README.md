@@ -24,6 +24,10 @@ Project Runtime:
 - version 0.0.1
 - repo at https://github.com/MDL-Sinlov/MDL-Android-Repo
 
+# Demo
+
+[Download Demo at Android-Device-Mark-debug-0.0.1.apk](Apk-For-Test/Android-Device-Mark-debug-0.0.1.apk)
+
 # Dependency
 
 at root project `build.gradle`

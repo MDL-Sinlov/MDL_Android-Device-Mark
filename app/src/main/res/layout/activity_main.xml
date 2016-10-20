@@ -45,10 +45,6 @@
             style="@style/Sinlov.TextView.Select.MW" />
 
         <TextView
-            android:id="@+id/tv_main_device_ip_address"
-            style="@style/Sinlov.TextView.Select.MW" />
-
-        <TextView
             android:id="@+id/tv_main_device_hard_info_list"
             style="@style/Sinlov.TextView.Select.MW" />
 

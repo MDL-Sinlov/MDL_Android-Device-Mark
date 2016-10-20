@@ -3,7 +3,6 @@ package mdl.sinlov.android.demo.device_mark;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -32,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
     TextView tvMainDeviceImei;
     @BindView(R.id.tv_main_device_cpu_info)
     TextView tvMainDeviceCpuInfo;
-    @BindView(R.id.tv_main_device_ip_address)
-    TextView tvMainDeviceIpAddress;
     private static final String TAG = MainActivity.class.getCanonicalName();
     @BindView(R.id.btn_main_get_info)
     Button btnMainGetInfo;
@@ -57,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         String androidID = "androidID:\n" + DeviceBaseInfo.getAndroidID(aCtx);
         String hardwareInfoList = "hardwareInfo:\n" + DeviceBaseInfo.getDeviceHardwareInfoList();
         String cpuInfo = "cpu info:\n" + DeviceBaseInfo.getProcCPUInfo(aCtx);
-        String ipAddress = "IP address:\n" + DeviceIDFactory.getMachineIpAddress();
         tvMainDeviceAndroidId.setText(androidID);
         tvMainDeviceHardInfoList.setText(hardwareInfoList);
         tvMainUuid.setText(uuid);
@@ -66,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         tvMainDeviceSn.setText(sn);
         tvMainDeviceImei.setText(imei);
         tvMainDeviceCpuInfo.setText(cpuInfo);
-        tvMainDeviceIpAddress.setText(ipAddress);
     }
 
     @OnClick(R.id.btn_main_get_info)

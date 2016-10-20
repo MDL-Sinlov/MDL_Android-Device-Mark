@@ -9,9 +9,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.util.Enumeration;
 
 /**
  * for APP create device UUID
@@ -76,31 +73,6 @@ public class DeviceIDFactory {
         return deviceId.toString();
     }
 
-    /**
-     * 获取设备IP地址
-     *
-     * @return
-     */
-    public static String getMachineIpAddress() {
-        String ipAddress = null;
-        Enumeration<NetworkInterface> interfaces = null;
-        try {
-            interfaces = NetworkInterface.getNetworkInterfaces();
-            NetworkInterface iF = null;
-            while (interfaces.hasMoreElements()) {
-                iF = interfaces.nextElement();
-                Enumeration<InetAddress> addressEnumeration = iF.getInetAddresses();
-                InetAddress address = addressEnumeration.nextElement();
-                ipAddress = bytesToString(address.getAddress());
-                if (ipAddress == null) continue;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
-        return ipAddress;
-    }
-
     private static String bytesToString(byte[] bytes) {
         if (bytes == null || bytes.length == 0) {
             return null;
@@ -130,17 +102,10 @@ public class DeviceIDFactory {
                     "cat /sys/class/net/wlan0/address ");
             InputStreamReader ir = new InputStreamReader(pp.getInputStream());
             LineNumberReader input = new LineNumberReader(ir);
-
-            while (true) {
-                int lineNumber = input.getLineNumber();
-                if (lineNumber < 1) {
-                    break;
-                }
-                String str = input.readLine();
-                if (str != null) {
-                    wifiMac = str.trim();
-                    break;
-                }
+            String line = null;
+            while ((line = input.readLine()) != null) {
+                wifiMac = line.trim();
+                break;
             }
         } catch (Exception ex) {
             ex.printStackTrace();

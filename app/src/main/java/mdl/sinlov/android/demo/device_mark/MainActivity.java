@@ -15,6 +15,7 @@ import mdl.sinlov.andorid.device_mark.DeviceIDFactory;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = MainActivity.class.getCanonicalName();
     @BindView(R.id.tv_main_device_id)
     TextView tvMainDeviceId;
     @BindView(R.id.tv_main_uuid)
@@ -25,13 +26,14 @@ public class MainActivity extends AppCompatActivity {
     TextView tvMainDeviceHardInfoList;
     @BindView(R.id.tv_main_device_mac)
     TextView tvMainDeviceMac;
+    @BindView(R.id.tv_main_device_mac_safe)
+    TextView tvMainDeviceMacSafe;
     @BindView(R.id.tv_main_device_sn)
     TextView tvMainDeviceSn;
     @BindView(R.id.tv_main_device_imei)
     TextView tvMainDeviceImei;
     @BindView(R.id.tv_main_device_cpu_info)
     TextView tvMainDeviceCpuInfo;
-    private static final String TAG = MainActivity.class.getCanonicalName();
     @BindView(R.id.btn_main_get_info)
     Button btnMainGetInfo;
     @BindView(R.id.activity_main)
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         String imei = "imei:\n" + DeviceIDFactory.getDeviceIDByIMEI(aCtx);
         String sn = "sn:\n" + DeviceIDFactory.getDeviceIDBySN(aCtx);
         String mac = "mac:\n" + DeviceIDFactory.getDeviceIDByMac();
+        String macSafe = "macSafe:\n" + DeviceIDFactory.getDeviceIDByMac(aCtx);
         String deviceId = "deviceID:\n" + DeviceIDFactory.getDeviceId(aCtx, "");
         String androidID = "androidID:\n" + DeviceBaseInfo.getAndroidID(aCtx);
         String hardwareInfoList = "hardwareInfo:\n" + DeviceBaseInfo.getDeviceHardwareInfoList();
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         tvMainUuid.setText(uuid);
         tvMainDeviceId.setText(deviceId);
         tvMainDeviceMac.setText(mac);
+        tvMainDeviceMacSafe.setText(macSafe);
         tvMainDeviceSn.setText(sn);
         tvMainDeviceImei.setText(imei);
         tvMainDeviceCpuInfo.setText(cpuInfo);

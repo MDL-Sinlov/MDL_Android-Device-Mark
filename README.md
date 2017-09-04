@@ -21,12 +21,12 @@ Project Runtime:
 
 # Last Version Info
 
-- version 0.0.1
+- version 0.1.1
 - repo at https://github.com/MDL-Sinlov/MDL-Android-Repo
 
 # Demo
 
-[Download Demo at Android-Device-Mark-debug-0.0.1.apk](https://github.com/MDL-Sinlov/MDL_Android-Device-Mark/raw/master/Apk-For-Test/Android-Device-Mark-debug-0.0.1.apk)
+[Download Demo at Android-Device-Mark-debug-0.1.1.apk](https://github.com/MDL-Sinlov/MDL_Android-Device-Mark/raw/master/Apk-For-Test/Android-Device-Mark-debug-0.1.1.apk)
 
 # Dependency
 
@@ -46,7 +46,7 @@ in module `build.gradle`
 
 ```gradle
 dependencies {
-    compile 'mdl.sinlov.android:device-mark:0.0.1'
+    compile 'mdl.sinlov.android:device-mark:0.1.1'
 }
 ```
 
@@ -55,6 +55,8 @@ dependencies {
 ```java
 # you can use MAC from API9 - API23
 String mac = "mac:\n" + DeviceIDFactory.getDeviceIDByMac();
+# if full use of get MAC addr
+String macSafe = "macSafe:\n" + DeviceIDFactory.getDeviceIDByMac(aCtx);
 
 # Full of API can use like install UUID
 String uuid = "uuid:\n" + DeviceIDFactory.getUUID(aCtx);
@@ -68,7 +70,7 @@ String deviceId = "deviceID:\n" + DeviceIDFactory.getDeviceId(aCtx, "");
 
 ---
 
-Copyright 2016 sinlovgm@gmail.com
+Copyright 2017 sinlovgm@gmail.com
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

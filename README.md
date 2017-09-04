@@ -52,6 +52,15 @@ dependencies {
 
 # Usage
 
+- need permission
+
+```xml
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+```
+
+
 ```java
 # you can use MAC from API9 - API23
 String mac = "mac:\n" + DeviceIDFactory.getDeviceIDByMac();

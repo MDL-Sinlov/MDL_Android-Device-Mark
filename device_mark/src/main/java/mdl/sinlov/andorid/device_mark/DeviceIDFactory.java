@@ -124,16 +124,21 @@ public class DeviceIDFactory {
 
     /**
      * need open WIFI add at uses-permission android:name="android.permission.ACCESS_WIFI_STATE"
-     * first read getMacAddressByIP
-     * second read getDevicesHardwareAddress
+     * if above {@link android.os.Build.VERSION_CODES#M}
+     * read getMacAddressByIP
+     * read getDevicesHardwareAddress
+     * else
+     * <p>
      * finally read readMacAddressByLinuxClassNet
      *
      * @return {@link String} this will return null
      */
     public static String getDeviceIDByMac() {
-        wifiMac = getMacAddressByIP();
-        if (TextUtils.isEmpty(wifiMac)) {
-            wifiMac = getDevicesHardwareAddress();
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            wifiMac = getMacAddressByIP();
+            if (TextUtils.isEmpty(wifiMac)) {
+                wifiMac = getDevicesHardwareAddress();
+            }
         }
         if (TextUtils.isEmpty(wifiMac)) {
             wifiMac = readMacAddressByLinuxClassNet();

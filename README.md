@@ -21,12 +21,12 @@ Project Runtime:
 
 # Last Version Info
 
-- version 0.1.1
+- version 0.1.2
 - repo at https://github.com/MDL-Sinlov/MDL-Android-Repo
 
 # Demo
 
-[Download Demo at Android-Device-Mark-debug-0.1.1.apk](https://github.com/MDL-Sinlov/MDL_Android-Device-Mark/raw/master/Apk-For-Test/Android-Device-Mark-debug-0.1.1.apk)
+[Download Demo at Android-Device-Mark-debug-0.1.2.apk](https://github.com/MDL-Sinlov/MDL_Android-Device-Mark/raw/master/Apk-For-Test/Android-Device-Mark-debug-0.1.2.apk)
 
 # Dependency
 
@@ -46,7 +46,7 @@ in module `build.gradle`
 
 ```gradle
 dependencies {
-    compile 'mdl.sinlov.android:device-mark:0.1.1'
+    compile 'mdl.sinlov.android:device-mark:0.1.2'
 }
 ```
 

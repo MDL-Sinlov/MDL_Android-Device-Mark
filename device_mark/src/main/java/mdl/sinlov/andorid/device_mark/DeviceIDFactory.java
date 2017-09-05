@@ -58,7 +58,7 @@ public class DeviceIDFactory {
         } else {
             deviceId.setLength(0);
         }
-        String wifiMac = getDeviceIDByMac();
+        String wifiMac = getDeviceIDByMac(context, true);
         if (!TextUtils.isEmpty(wifiMac)) {
             deviceId.append("&wifi#");
             deviceId.append(wifiMac);
@@ -98,24 +98,50 @@ public class DeviceIDFactory {
 
     /**
      * typ get by {@link #getDeviceIDByMac()} first
-     * if not has use {@link #getDeviceIDByMac(Context)}
+     * if not has use {@link #getDeviceIDByMac(Context, boolean)}
      * even return empty or 02:00:00:00:00:00 return {@link #getUUID(Context)}
      *
-     * @param context
+     * @param context {@link Context}
+     * @param force   force get
      * @return
      */
-    public static String getDeviceIDByMac(Context context) {
+    public static String getDeviceIDByMac(Context context, boolean force) {
+        if (force) {
+            DeviceIDFactory.wifiMac = null;
+        }
         if (!TextUtils.isEmpty(wifiMac)) {
             return wifiMac;
         }
-        wifiMac = getDeviceIDByMac();
-        if (TextUtils.isEmpty(wifiMac)) {
-            wifiMac = getMacAddressFromWifiManager(context);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            if (TextUtils.isEmpty(wifiMac)) {
+                wifiMac = getDeviceIDByMac();
+            }
+        }
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+            if (TextUtils.isEmpty(wifiMac)) {
+                wifiMac = readMacAddressByLinuxClassNetWlan();
+            }
+            if (TextUtils.isEmpty(wifiMac)) {
+                wifiMac = getMacAddressFromWifiManager(context);
+            }
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            if (TextUtils.isEmpty(wifiMac)) {
+                wifiMac = readMacAddressByLinuxClassNetWlan();
+            }
+            if (TextUtils.isEmpty(wifiMac)) {
+                wifiMac = getMacAddressFromWifiManager(context);
+            }
         }
         if (TextUtils.isEmpty(wifiMac)) {
             wifiMac = getUUID(context);
         } else {
+            if (wifiMac.equals("FA:B7:F4:52:68:9E")) {
+                Log.w("DeviceMac", "error get: 02:00:00:00:00:00");
+                wifiMac = getUUID(context);
+            }
             if (wifiMac.equals("02:00:00:00:00:00")) {
+                Log.w("DeviceMac", "error get: 02:00:00:00:00:00");
                 wifiMac = getUUID(context);
             }
         }
@@ -124,7 +150,7 @@ public class DeviceIDFactory {
 
     /**
      * need open WIFI add at uses-permission android:name="android.permission.ACCESS_WIFI_STATE"
-     * if above {@link android.os.Build.VERSION_CODES#M}
+     * <p>
      * read getMacAddressByIP
      * read getDevicesHardwareAddress
      * else
@@ -134,11 +160,11 @@ public class DeviceIDFactory {
      * @return {@link String} this will return null
      */
     public static String getDeviceIDByMac() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+        if (TextUtils.isEmpty(wifiMac)) {
             wifiMac = getMacAddressByIP();
-            if (TextUtils.isEmpty(wifiMac)) {
-                wifiMac = getDevicesHardwareAddress();
-            }
+        }
+        if (TextUtils.isEmpty(wifiMac)) {
+            wifiMac = getDevicesHardwareAddress();
         }
         if (TextUtils.isEmpty(wifiMac)) {
             wifiMac = readMacAddressByLinuxClassNet();
@@ -176,7 +202,7 @@ public class DeviceIDFactory {
      *
      * @return this will return null
      */
-    private static String getLocalIpAddress() {
+    public static String getLocalIpAddress() {
         try {
             for (Enumeration<NetworkInterface> en = NetworkInterface
                     .getNetworkInterfaces(); en.hasMoreElements(); ) {
@@ -273,10 +299,29 @@ public class DeviceIDFactory {
      * @return this will return null
      */
     private static String readMacAddressByLinuxClassNet() {
+        String readMac = readMacAddressByLinuxClassNetWlan();
+        if (TextUtils.isEmpty(readMac)) {
+            readMac = readMacAddressByLinuxClassNetEth0();
+        }
+        return readMac;
+    }
+
+    private static String readMacAddressByLinuxClassNetWlan() {
+        String readMac = null;
+        try {
+            readMac = loadFileAsString("/sys/class/net/wlan0/address")
+                    .toLowerCase().substring(0, 17);
+        } catch (IOException e) {
+            Log.w("MacByLinuxClassNet", "error", e);
+        }
+        return readMac;
+    }
+
+    private static String readMacAddressByLinuxClassNetEth0() {
         String readMac = null;
         try {
             Process pp = Runtime.getRuntime().exec(
-                    "cat /sys/class/net/wlan0/address ");
+                    "cat /sys/class/net/eth0/address");
             InputStreamReader ir = new InputStreamReader(pp.getInputStream());
             LineNumberReader input = new LineNumberReader(ir);
             String line = null;
@@ -285,12 +330,7 @@ public class DeviceIDFactory {
                 break;
             }
         } catch (Exception ex) {
-            try {
-                readMac = loadFileAsString("/sys/class/net/eth0/address")
-                        .toLowerCase().substring(0, 17);
-            } catch (IOException e) {
-                Log.w("MacByLinuxClassNet", "error", e);
-            }
+            Log.w("MacByLinuxClassNet", "error", ex);
         }
         return readMac;
     }

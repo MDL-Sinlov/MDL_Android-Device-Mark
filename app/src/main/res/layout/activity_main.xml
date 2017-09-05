@@ -33,6 +33,10 @@
             style="@style/Sinlov.TextView.Select.MW" />
 
         <TextView
+            android:id="@+id/tv_main_device_ip"
+            style="@style/Sinlov.TextView.Select.MW" />
+
+        <TextView
             android:id="@+id/tv_main_device_mac"
             style="@style/Sinlov.TextView.Select.MW" />
 

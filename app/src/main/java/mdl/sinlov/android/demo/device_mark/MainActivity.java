@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     TextView tvMainDeviceAndroidId;
     @BindView(R.id.tv_main_device_hard_info_list)
     TextView tvMainDeviceHardInfoList;
+    @BindView(R.id.tv_main_device_ip)
+    TextView tvMainDeviceIp;
     @BindView(R.id.tv_main_device_mac)
     TextView tvMainDeviceMac;
     @BindView(R.id.tv_main_device_mac_safe)
@@ -51,8 +53,9 @@ public class MainActivity extends AppCompatActivity {
         String uuid = "uuid:\n" + DeviceIDFactory.getUUID(aCtx);
         String imei = "imei:\n" + DeviceIDFactory.getDeviceIDByIMEI(aCtx);
         String sn = "sn:\n" + DeviceIDFactory.getDeviceIDBySN(aCtx);
+        String ip = "local ip:\n" + DeviceIDFactory.getLocalIpAddress();
+        String macSafe = "macSafe:\n" + DeviceIDFactory.getDeviceIDByMac(aCtx, true);
         String mac = "mac:\n" + DeviceIDFactory.getDeviceIDByMac();
-        String macSafe = "macSafe:\n" + DeviceIDFactory.getDeviceIDByMac(aCtx);
         String deviceId = "deviceID:\n" + DeviceIDFactory.getDeviceId(aCtx, "");
         String androidID = "androidID:\n" + DeviceBaseInfo.getAndroidID(aCtx);
         String hardwareInfoList = "hardwareInfo:\n" + DeviceBaseInfo.getDeviceHardwareInfoList();
@@ -61,8 +64,9 @@ public class MainActivity extends AppCompatActivity {
         tvMainDeviceHardInfoList.setText(hardwareInfoList);
         tvMainUuid.setText(uuid);
         tvMainDeviceId.setText(deviceId);
-        tvMainDeviceMac.setText(mac);
+        tvMainDeviceIp.setText(ip);
         tvMainDeviceMacSafe.setText(macSafe);
+        tvMainDeviceMac.setText(mac);
         tvMainDeviceSn.setText(sn);
         tvMainDeviceImei.setText(imei);
         tvMainDeviceCpuInfo.setText(cpuInfo);

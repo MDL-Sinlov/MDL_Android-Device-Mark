@@ -136,10 +136,6 @@ public class DeviceIDFactory {
         if (TextUtils.isEmpty(wifiMac)) {
             wifiMac = getUUID(context);
         } else {
-            if (wifiMac.equals("FA:B7:F4:52:68:9E")) {
-                Log.w("DeviceMac", "error get: 02:00:00:00:00:00");
-                wifiMac = getUUID(context);
-            }
             if (wifiMac.equals("02:00:00:00:00:00")) {
                 Log.w("DeviceMac", "error get: 02:00:00:00:00:00");
                 wifiMac = getUUID(context);
